@@ -1,9 +1,66 @@
 # Proyecto Final de Entorno Servidor
 
 Este proyecto es el desarrollo de una API RESTful utilizando Node.js, Express y MongoDB. La API permite la gestión de usuarios y productos, incluyendo operaciones CRUD (Crear, Leer, Actualizar, Eliminar). Además, se ha implementado autenticación y autorización utilizando JWT (JSON Web Tokens).
-
+## Diagrama de flujo
+![DiagramaDeFlujo](/DiagramaDeFluijo.png)
 ## Estructura del Proyecto
+TFG-Backend/
+├── src/
 
+│   ├── Controllers/
+
+│   │   ├── auth.
+
+│   │   ├── [products.js](http://_vscodecontentref_/1)
+
+│   │   └── users.js
+
+│   ├── Middleware/
+
+│   │   └── auth.js
+
+│   ├── Models/
+
+│   │   ├── [index.js](http://_vscodecontentref_/2)
+
+│   │   ├── product.js
+
+│   │   └── user.js
+
+│   ├── Routes/
+
+│   │   ├── auth.js
+
+│   │   ├── [index.js](http://_vscodecontentref_/3)
+
+│   │   └── [products.js](http://_vscodecontentref_/4)
+
+│   ├── Utils/
+
+│   │   └── [swagger.js](http://_vscodecontentref_/5)
+
+│   └── [server.js](http://_vscodecontentref_/6)
+
+├── tests/
+
+│   ├── Controllers/
+
+│   │   ├── auth.test.js
+
+│   │   └── createProduct.test.js
+
+│   ├── Loaders/
+
+│   ├── Routes/
+
+│   └── Services/
+├── .env
+
+├── [jest.config.cjs](http://_vscodecontentref_/7)
+
+├── [package.json](http://_vscodecontentref_/8)
+
+└── [Readme.md](http://_vscodecontentref_/9)
 
 ## Instalación
 
@@ -73,4 +130,3 @@ La documentación de la API se genera automáticamente utilizando Swagger. Puede
 
 ------------------------------------
  Proyecto desarrollado como parte de la asignatura de Entorno Servidor.
-
