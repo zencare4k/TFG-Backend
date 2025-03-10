@@ -9,8 +9,8 @@ const connectDB = async () => {
   if (dbInstanceUsers && dbInstanceProducts) return { dbInstanceUsers, dbInstanceProducts };
 
   try {
-    const clientUsers = new MongoClient(process.env.MONGO_URI_USERS);
-    const clientProducts = new MongoClient(process.env.MONGO_URI_PRODUCTS);
+    const clientUsers = new MongoClient(process.env.MONGO_URI_USERS, { useNewUrlParser: true, useUnifiedTopology: true });
+    const clientProducts = new MongoClient(process.env.MONGO_URI_PRODUCTS, { useNewUrlParser: true, useUnifiedTopology: true });
 
     await clientUsers.connect();
     await clientProducts.connect();

@@ -1,80 +1,38 @@
-import { connectProductDB } from "../Models/products.js";
-import { ObjectId } from "mongodb";
+import { getAllProducts, createProduct, updateProduct, deleteProduct, getProductById } from "../Services/products.js";
 
-export const getAllProducts = async (req, res) => {
-  try {
-    const dbInstance = await connectProductDB();
-    const products = await dbInstance.collection("products").find().toArray();
-    res.status(200).json(products);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+export const getAllProductsController = async (req, res) => {
+  const products = await getAllProducts();
+  res.status(200).json(products);
 };
 
-export const getProductById = async (req, res) => {
-  try {
-    const dbInstance = await connectProductDB();
-    const product = await dbInstance.collection("products").findOne({ _id: new ObjectId(req.params.id) });
-    if (!product) {
-      return res.status(404).json({ message: "Producto no encontrado" });
-    }
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+export const createProductController = async (req, res) => {
+  await createProduct(req.body);
+  res.status(201).json({ message: "Created" });
 };
 
-export const createProduct = async (req, res) => {
-  try {
-    const { name, description, price, originalPrice, discount, image, category } = req.body;
-    const dbInstance = await connectProductDB();
-    const newProduct = {
-      name,
-      description,
-      price,
-      originalPrice,
-      discount,
-      image,
-      likes: 0,
-      hasLiked: false,
-      category,
-      ratings: [],
-      comments: [],
-      inWishlist: false,
-    };
-    await dbInstance.collection("products").insertOne(newProduct);
-    res.status(201).json(newProduct);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+export const updateProductController = async (req, res) => {
+  const { id } = req.params;
+  const matchedCount = await updateProduct(id, req.body);
+  if (matchedCount === 0) {
+    return res.status(404).json({ message: "Producto no encontrado" });
   }
+  res.status(200).json({ message: "Updated" });
 };
 
-export const updateProduct = async (req, res) => {
-  try {
-    const dbInstance = await connectProductDB();
-    const updatedProduct = req.body;
-    const result = await dbInstance.collection("products").updateOne(
-      { _id: new ObjectId(req.params.id) },
-      { $set: updatedProduct }
-    );
-    if (result.matchedCount === 0) {
-      return res.status(404).json({ message: "Producto no encontrado" });
-    }
-    res.status(200).json(updatedProduct);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+export const deleteProductController = async (req, res) => {
+  const { id } = req.params;
+  const deletedCount = await deleteProduct(id);
+  if (deletedCount === 0) {
+    return res.status(404).json({ message: "Producto no encontrado" });
   }
+  res.status(200).json({ message: "Deleted" });
 };
 
-export const deleteProduct = async (req, res) => {
-  try {
-    const dbInstance = await connectProductDB();
-    const result = await dbInstance.collection("products").deleteOne({ _id: new ObjectId(req.params.id) });
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ message: "Producto no encontrado" });
-    }
-    res.status(200).json({ message: "Producto eliminado exitosamente" });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+export const getProductByIdController = async (req, res) => {
+  const { id } = req.params;
+  const product = await getProductById(id);
+  if (!product) {
+    return res.status(404).json({ message: "Producto no encontrado" });
   }
+  res.status(200).json(product);
 };

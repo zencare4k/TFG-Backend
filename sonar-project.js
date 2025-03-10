@@ -7,7 +7,7 @@ sonarqubeScanner({
     'sonar.sources': 'src',
     'sonar.language': 'js',
     'sonar.sourceEncoding': 'UTF-8',
-    'sonar.login': 'sqa_b90013b821e1228490f33a775092b346a8c3a9ac',
+    'sonar.login': 'sqp_2f16f83143e4c0d65301946b0a24f19373d95b1b',
     'sonar.javascript.lcov.reportPaths': 'coverage/lcov.info'
   }
 }, () => process.exit());

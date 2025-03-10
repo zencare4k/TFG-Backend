@@ -4,10 +4,10 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI_USERS=mongodb://mongo:27017/users
-      - MONGO_URI_PRODUCTS=mongodb://mongo:27017/products
-      - JWT_SECRET=your_jwt_secret
-      - ADMIN_PASSWORD=your_admin_password
+      - MONGO_URI_USERS=mongodb+srv://cmarrom:5H67xhmzVNv3BXPy@cluster0.0qlkh.mongodb.net/users?retryWrites=true&w=majority
+      - MONGO_URI_PRODUCTS=mongodb+srv://cmarrom:5H67xhmzVNv3BXPy@cluster0.0qlkh.mongodb.net/products?retryWrites=true&w=majority
+      - JWT_SECRET=pass_secreta_xd
+      - ADMIN_PASSWORD=admin_password
     depends_on:
       - mongo
 

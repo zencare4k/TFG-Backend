@@ -1,14 +1,8 @@
-import { Router } from 'express';
-import { getUsers, createUser, updateUser, deleteUser } from '../Controllers/users.js';
+import { Router } from "express";
+import { getUsersController, createUserController, updateUserController, deleteUserController } from "../Controllers/users.js";
+import { authMiddleware, adminMiddleware } from "../Middleware/auth.js"; // Importar los middlewares de autenticación y administrador
 
 const router = Router();
-
-/**
- * @swagger
- * tags:
- *   name: Users
- *   description: Gestión de usuarios
- */
 
 /**
  * @swagger
@@ -19,20 +13,8 @@ const router = Router();
  *     responses:
  *       200:
  *         description: Lista de usuarios
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   _id:
- *                     type: string
- *                   name:
- *                     type: string
- *                   email:
- *                     type: string
  */
+router.get("/users", getUsersController);
 
 /**
  * @swagger
@@ -53,10 +35,18 @@ const router = Router();
  *                 type: string
  *               password:
  *                 type: string
+ *               isAdmin:
+ *                 type: boolean
+ *               adminPassword:
+ *                 type: string
+ *                 description: Contraseña de administrador (requerida si isAdmin es true)
  *     responses:
  *       201:
  *         description: Usuario creado exitosamente
+ *       400:
+ *         description: Error en la solicitud
  */
+router.post("/users", authMiddleware, adminMiddleware, createUserController);
 
 /**
  * @swagger
@@ -90,6 +80,7 @@ const router = Router();
  *       404:
  *         description: Usuario no encontrado
  */
+router.put("/users/:id", authMiddleware, adminMiddleware, updateUserController);
 
 /**
  * @swagger
@@ -110,10 +101,6 @@ const router = Router();
  *       404:
  *         description: Usuario no encontrado
  */
-
-router.get("/", getUsers);
-router.post("/", createUser);
-router.put("/:id", updateUser);
-router.delete("/:id", deleteUser);
+router.delete("/users/:id", authMiddleware, adminMiddleware, deleteUserController);
 
 export default router;

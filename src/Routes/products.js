@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct } from "../Controllers/products.js";
+import { getAllProductsController, createProductController, updateProductController, deleteProductController, getProductByIdController } from "../Controllers/products.js";
 import { authMiddleware, adminMiddleware } from "../Middleware/auth.js"; // Importar los middlewares de autenticación y administrador
 
 const router = Router();
@@ -14,7 +14,7 @@ const router = Router();
  *       200:
  *         description: Lista de productos
  */
-router.get("/products", getAllProducts);
+router.get("/products", getAllProductsController);
 
 /**
  * @swagger
@@ -35,7 +35,7 @@ router.get("/products", getAllProducts);
  *       404:
  *         description: Producto no encontrado
  */
-router.get("/products/:id", getProductById);
+router.get("/products/:id", getProductByIdController);
 
 /**
  * @swagger
@@ -70,7 +70,7 @@ router.get("/products/:id", getProductById);
  *       400:
  *         description: Error en la solicitud
  */
-router.post("/products", createProduct); // Eliminar authMiddleware y adminMiddleware
+router.post("/products", createProductController);
 
 /**
  * @swagger
@@ -94,19 +94,25 @@ router.post("/products", createProduct); // Eliminar authMiddleware y adminMiddl
  *             properties:
  *               name:
  *                 type: string
- *               price:
- *                 type: number
  *               description:
+ *                 type: string
+ *               price:
+ *                 type: string
+ *               originalPrice:
+ *                 type: string
+ *               discount:
+ *                 type: string
+ *               image:
+ *                 type: string
+ *               category:
  *                 type: string
  *     responses:
  *       200:
  *         description: Producto actualizado exitosamente
  *       404:
  *         description: Producto no encontrado
- *     security:
- *       - bearerAuth: []
  */
-router.put("/products/:id", authMiddleware, adminMiddleware, updateProduct);
+router.put("/products/:id", updateProductController);
 
 /**
  * @swagger
@@ -126,9 +132,7 @@ router.put("/products/:id", authMiddleware, adminMiddleware, updateProduct);
  *         description: Producto eliminado exitosamente
  *       404:
  *         description: Producto no encontrado
- *     security:
- *       - bearerAuth: []
  */
-router.delete("/products/:id", authMiddleware, adminMiddleware, deleteProduct);
+router.delete("/products/:id", deleteProductController);
 
 export default router;
