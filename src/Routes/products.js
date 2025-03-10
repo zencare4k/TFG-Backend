@@ -13,6 +13,29 @@ const router = Router();
  *     responses:
  *       200:
  *         description: Lista de productos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ *                   description:
+ *                     type: string
+ *                   price:
+ *                     type: number
+ *                   originalPrice:
+ *                     type: number
+ *                   discount:
+ *                     type: number
+ *                   image:
+ *                     type: string
+ *                   category:
+ *                     type: string
  */
 router.get("/products", getAllProductsController);
 
@@ -32,6 +55,27 @@ router.get("/products", getAllProductsController);
  *     responses:
  *       200:
  *         description: Producto encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *                 price:
+ *                   type: number
+ *                 originalPrice:
+ *                   type: number
+ *                 discount:
+ *                   type: number
+ *                 image:
+ *                   type: string
+ *                 category:
+ *                   type: string
  *       404:
  *         description: Producto no encontrado
  */
@@ -55,11 +99,11 @@ router.get("/products/:id", getProductByIdController);
  *               description:
  *                 type: string
  *               price:
- *                 type: string
+ *                 type: number
  *               originalPrice:
- *                 type: string
+ *                 type: number
  *               discount:
- *                 type: string
+ *                 type: number
  *               image:
  *                 type: string
  *               category:
@@ -97,11 +141,11 @@ router.post("/products", createProductController);
  *               description:
  *                 type: string
  *               price:
- *                 type: string
+ *                 type: number
  *               originalPrice:
- *                 type: string
+ *                 type: number
  *               discount:
- *                 type: string
+ *                 type: number
  *               image:
  *                 type: string
  *               category:

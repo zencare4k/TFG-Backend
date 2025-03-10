@@ -1,27 +1,41 @@
-import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { Router } from 'express';
 
-const router = Router();
-
-const swaggerOptions = {
-  swaggerDefinition: {
+const options = {
+  definition: {
     openapi: '3.0.0',
     info: {
-      title: 'TFG Backend API',
+      title: 'API Documentation',
       version: '1.0.0',
-      description: 'API documentation for TFG Backend',
+      description: 'API documentation for your project',
     },
     servers: [
       {
-        url: 'http://localhost:5000',
+        url: 'http://localhost:5000/api',
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
       },
     ],
   },
-  apis: ['./src/Routes/*.js'], // Ruta a tus archivos de rutas
+  apis: ['./src/Routes/*.js', './src/Controllers/*.js'], // Archivos donde se encuentran las rutas y controladores
 };
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+const specs = swaggerJsdoc(options);
 
-export default router;
+const swaggerRouter = Router();
+swaggerRouter.use('/docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+export default swaggerRouter;
