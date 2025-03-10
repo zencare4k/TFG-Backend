@@ -2,9 +2,9 @@ import { connectDB } from "../Models/index.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import config from "../../config.js";
-import { ObjectId } from "mongodb";  // Importar ObjectId
+import { ObjectId } from "mongodb";
 
-export const registerUser = async (req, res) => {
+export const register = async (req, res) => {
   const { name, email, password, isAdmin, adminPassword } = req.body;
 
   // Verificar si se requiere la contraseña de administrador
@@ -24,7 +24,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-export const loginUser = async (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {

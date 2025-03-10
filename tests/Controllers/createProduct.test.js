@@ -1,8 +1,8 @@
-import { createProduct } from "../products.js";
-import { connectProductDB } from "../../Models/products.js";
+import { createProduct } from "../../src/Controllers/products.js";
+import { connectProductDB } from "../../src/Models/products.js";
 import { ObjectId } from "mongodb";
 
-jest.mock("../../Models/products.js");
+jest.mock("../../src/Models/products.js");
 
 describe("createProduct", () => {
   let req, res, dbInstance;

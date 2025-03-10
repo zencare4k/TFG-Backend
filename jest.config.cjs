@@ -5,5 +5,6 @@ module.exports = {
   transform: {
     '^.+\\.js$': 'babel-jest',
   },
-  testMatch: ["**/tests/**/*.test.js"], // Asegúrate de que Jest busque en la carpeta correcta
+  testMatch: ['**/tests/**/*.test.js'],
+  testPathIgnorePatterns: ['/node_modules/'],
 };
