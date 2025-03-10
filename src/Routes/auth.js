@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { registerUser, loginUser, getUserById } from "../Controllers/auth.js";
+import { register, login, getUserById } from "../Controllers/auth.js";
 import { authMiddleware } from "../Middleware/auth.js"; // Importar el middleware de autenticación
 
 const router = Router();
 
 /**
  * @swagger
- * /auth/registerUser:
+ * /auth/register:
  *   post:
  *     summary: Registra un nuevo usuario
  *     tags: [Auth]
@@ -36,11 +36,11 @@ const router = Router();
  *       403:
  *         description: Contraseña de administrador incorrecta
  */
-router.post("/registerUser", registerUser);
+router.post("/register", register);
 
 /**
  * @swagger
- * /auth/loginUser:
+ * /auth/login:
  *   post:
  *     summary: Inicia sesión
  *     tags: [Auth]
@@ -61,7 +61,7 @@ router.post("/registerUser", registerUser);
  *       401:
  *         description: Credenciales inválidas
  */
-router.post("/loginUser", loginUser);
+router.post("/login", login);
 
 /**
  * @swagger

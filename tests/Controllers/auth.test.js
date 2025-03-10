@@ -1,13 +1,13 @@
 import request from 'supertest';
-import app from '../../app'; // Asegúrate de que este sea el punto de entrada de tu aplicación
+import app from '../../app.js';
 
 describe('Auth Endpoints', () => {
   it('should register a new user', async () => {
     const res = await request(app)
       .post('/api/auth/register')
       .send({
-        name: 'John Doe',
-        email: 'john.doe@example.com',
+        name: 'Test User',
+        email: 'test@example.com',
         password: 'password123',
         isAdmin: false
       });
@@ -19,7 +19,7 @@ describe('Auth Endpoints', () => {
     const res = await request(app)
       .post('/api/auth/login')
       .send({
-        email: 'john.doe@example.com',
+        email: 'test@example.com',
         password: 'password123'
       });
     expect(res.statusCode).toEqual(200);
